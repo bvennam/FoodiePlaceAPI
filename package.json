@@ -1,0 +1,24 @@
+{
+  "name": "foodieplaceapi",
+  "version": "1.0.0",
+  "description": "backend application for foodieplace app",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/beemarie/FoodiePlaceAPI.git"
+  },
+  "author": "Belinda Vennam",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/beemarie/FoodiePlaceAPI/issues"
+  },
+  "homepage": "https://github.com/beemarie/FoodiePlaceAPI#readme",
+  "dependencies": {
+    "body-parser": "~1.0.1",
+    "express": "^4.13.4",
+    "mongoose": "^4.4.13"
+  }
+}
