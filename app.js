@@ -47,6 +47,46 @@ router.route('/locations')
             res.json(locations);
         });
     });
+  // routes for /locations/:location_id
+  router.route('/locations/:location_id')
+
+      // get the location with that id (accessed at GET http://localhost:8080/api/locations/:location_id)
+      .get(function(req, res) {
+          Location.findById(req.params.location_id, function(err, location) {
+              if (err)
+                  res.send(err);
+              res.json(location);
+          });
+      })
+
+      .put(function(req, res) {
+        Location.findById(req.params.location_id, function(err, location) {
+          if (err) {
+            res.send(err);
+          }
+          //update the name & foods for each location
+          location.name = req.body.name;
+          location.foods = req.body.foods;
+          console.log("here2")
+          //save the location
+          location.save(function(err) {
+            if(err) {
+              res.send(err);
+            }
+            res.json({message: 'location updated!'});
+          });
+        });
+      })
+
+      .delete (function(req, res) {
+        Location.remove({
+          _id:req.params.location_id}, function(err, location) {
+            if (err) {
+              res.send(err);
+            }
+            res.json({message: 'successfully deleted location'})
+          });
+      });
 
 //register routes
 app.use('/api', router);
