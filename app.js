@@ -26,10 +26,13 @@ router.route('/locations')
     // create a location object (accessed at POST http://localhost:8080/api/locations)
     .post(function(req, res) {
         var location = new Location();
-        //set location name
+        //set location name, googleID, & googleAddress
         location.name = req.body.name;
+        location.google_id = req.body.google_id;
+        location.google_address = req.body.google_address;
         //set location associated foods array
         location.foods = req.body.foods;
+
         // save the location and check for errors
         location.save(function(err) {
             if (err) {
@@ -47,6 +50,15 @@ router.route('/locations')
             res.json(locations);
         });
     });
+  // routes for /locations/:google_id
+  router.route('/locations/google/:google_id')
+      .get(function(req, res) {
+        Location.findOne({ 'google_id': req.params.google_id }, function (err, doc) {
+          if(err)
+            res.send(err)
+            res.json(doc)
+        });
+      });
   // routes for /locations/:location_id
   router.route('/locations/:location_id')
 
@@ -66,6 +78,8 @@ router.route('/locations')
           }
           //update the name & foods for each location
           location.name = req.body.name;
+          location.google_address = req.body.google_address;
+          location.google_id = req.body.google_id;
           location.foods = req.body.foods;
           console.log("here2")
           //save the location
