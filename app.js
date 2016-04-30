@@ -26,6 +26,14 @@ router.route('/locations')
     // create a location object (accessed at POST http://localhost:8080/api/locations)
     .post(function(req, res) {
         var location = new Location();
+
+        Location.findOneAndUpdate({google_id: req.body.google_id},
+          {$push:{foods:req.body.foods}},{new: true},
+          function(err, doc){
+            if(err){
+              console.log("Something wrong when updating data!");
+            }
+          })
         //set location name, googleID, & googleAddress
         location.name = req.body.name;
         location.google_id = req.body.google_id;
